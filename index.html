@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <script>
+            /*
+             * This is a simple example of how you can create form elements dynamically
+             * based on a JSON object. The JSON object is passed as a base64-encoded query
+             * parameter in the URL. The JSON object should have the following structure:
+             * {
+             *   "elements": [
+             *     {
+             *       "type": "title",
+             *       "value": "Title text"
+             *     },
+             *     {
+             *       "type": "subtitle",
+             *       "value": "Subtitle text"
+             *     },
+             *     {
+             *       "type": "button",
+             *       "value": "Button text",
+             *       "onclick": "alert('Button clicked')"
+             *     },
+             *     {
+             *       "type": "link",
+             *       "value": "https://www.google.com",
+             *       "content": "Google"
+             *     }
+             *   ]
+             * }
+             */
+
+            // Assuming you have a query parameter 'data' with base64-encoded JSON
+            const params = new URLSearchParams(window.location.search);
+            const base64Data = params.get('data');
+            const jsonData = JSON.parse(atob(base64Data));
+
+            // Function to create form elements
+            function createFormElements(jsonData) {
+                const form = document.createElement('form');
+                jsonData.elements.forEach(el => {
+                    let element;
+                    switch(el.type) {
+                        case 'title':
+                            element = document.createElement('h1');
+                            element.textContent = el.value;
+                            break;
+                        case 'subtitle':
+                            element = document.createElement('h2');
+                            element.textContent = el.value;
+                            break;
+                        case 'button':
+                            element = document.createElement('button');
+                            element.textContent = el.value;
+                            element.onclick = () => eval(el.onclick);
+                            break;
+                        case 'link':
+                            element = document.createElement('a');
+                            element.href = el.value;
+                            element.textContent = el.content;
+                            break;
+                    }
+                    form.appendChild(element);
+                });
+                
+            }
+
+            document.body.appendChild(createFormElements(jsonData));
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>
