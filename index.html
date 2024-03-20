@@ -30,11 +30,14 @@
              */
 
             // Assuming you have a query parameter 'data' with base64-encoded JSON
-            const params = new URLSearchParams(window.location.search);
-            const base64Data = params.get('data');
-            const jsonString = atob(base64Data);
-            const jsonData = JSON.parse(jsonString);
-
+            window.onload = function(){
+                const params = new URLSearchParams(window.location.search);
+                const base64Data = params.get('data');
+                const jsonString = atob(base64Data);
+                const jsonData = JSON.parse(jsonString);
+                document.body.appendChild(createFormElements(jsonData));
+            }
+            
             // Function to create form elements
             function createFormElements(jsonData) {
                 const form = document.createElement('form');
@@ -65,7 +68,6 @@
                 });
                 return form
             }
-            document.body.appendChild(createFormElements(jsonData));
         </script>
     </head>
     <body>
