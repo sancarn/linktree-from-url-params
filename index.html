@@ -1,32 +1,110 @@
 <html>
     <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background: linear-gradient(135deg, #93e8fb 0%, #5a57f5 100%);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+            
+            form {
+                background: white;
+                min-width: 300px;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px; /* Adjusts spacing between elements */
+            }
+            
+            h1, h2 {
+                margin: 0;
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+                color: #333;
+            }
+            
+            h2 {
+                font-size: 1.2em;
+                color: #666;
+            }
+            
+            div, a {
+                display: inline-block;
+                padding: 10px 20px;
+                text-decoration: none;
+                color: white;
+                background-color: #24A0ED;
+                border: none;
+                border-radius: 5px;
+                font-size: 1em;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                width: 280px;
+            }
+            .button {
+                display: flex;
+                align-items: center;
+                user-select: none;
+            }
+            .icon {
+                margin-right: 8px;
+            }
+            div:hover, a:hover {
+                background-color: #007BFF;
+            }
+            div:active, a:active {
+                background-color: #003166;
+            }
+            a {
+                margin-bottom: 10px; /* Additional spacing for links */
+            }
+        </style>
         <script>
             /*
              * This is a simple example of how you can create form elements dynamically
              * based on a JSON object. The JSON object is passed as a base64-encoded query
              * parameter in the URL. The JSON object should have the following structure:
-             * {
-             *   "elements": [
-             *     {
-             *       "type": "title",
-             *       "value": "Title text"
-             *     },
-             *     {
-             *       "type": "subtitle",
-             *       "value": "Subtitle text"
-             *     },
-             *     {
-             *       "type": "button",
-             *       "value": "Button text",
-             *       "onclick": "alert('Button clicked')"
-             *     },
-             *     {
-             *       "type": "link",
-             *       "value": "https://www.google.com",
-             *       "content": "Google"
-             *     }
-             *   ]
-             * }
+                {
+                  "elements": [
+                    {
+                      "type": "title",
+                      "value": "Title text"
+                    },
+                    {
+                      "type": "subtitle",
+                      "value": "Subtitle text"
+                    },
+                    {
+                      "type": "link",
+                      "icon":"fa-brands fa-facebook",
+                      "content": "Facebook",
+                      "value": "http://www.facebook.com"
+                    },
+                    {
+                      "type": "link",
+                      "icon":"fa-brands fa-twitter",
+                      "content": "Twitter",
+                      "value": "http://www.twitter.com"
+                    },
+                    {
+                      "type":"button",
+                      "icon":"fa-solid fa-copy",
+                      "value": "Copy",
+                      "onclick": "navigator.clipboard.writeText(\"hello world\");"
+                    }
+                  ]
+                }
              */
 
             // Assuming you have a query parameter 'data' with base64-encoded JSON
@@ -41,8 +119,15 @@
             // Function to create form elements
             function createFormElements(jsonData) {
                 const form = document.createElement('form');
+
                 jsonData.elements.forEach(el => {
                     let element;
+                    let iconSpan = null;
+                    if (el.icon){
+                        iconSpan = document.createElement('span');
+                        iconSpan.classList.add("icon");
+                        el.icon.split(" ").forEach((icon)=>iconSpan.classList.add(icon));
+                    }
                     switch(el.type) {
                         case 'title':
                             element = document.createElement('h1');
@@ -53,9 +138,10 @@
                             element.textContent = el.value;
                             break;
                         case 'button':
-                            element = document.createElement('button');
+                            element = document.createElement('div');
+                            element.classList.add('button');
                             element.textContent = el.value;
-                            element.onclick = () => eval(el.onclick);
+                            element.addEventListener("click", function(){eval(el.onclick)});
                             break;
                         case 'link':
                             element = document.createElement('a');
@@ -63,8 +149,8 @@
                             element.textContent = el.content;
                             break;
                     }
+                    if (iconSpan) element.prepend(iconSpan);
                     form.appendChild(element);
-                    form.appendChild(document.createElement('br'));
                 });
                 return form
             }
