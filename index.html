@@ -2,73 +2,89 @@
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
         <style>
-            body {
-                font-family: 'Arial', sans-serif;
-                background: linear-gradient(135deg, #93e8fb 0%, #5a57f5 100%);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                margin: 0;
-            }
-            
+          @media (max-width: 768px) {
             form {
-                background: white;
-                min-width: 300px;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 10px; /* Adjusts spacing between elements */
+              width: 100%; /* Make the form full-width */
+              box-sizing: border-box; /* Include padding and border in the element's total width and height */
+              border-radius: 0; /* Optional: remove border radius for a full-width look */
+              margin: 0; /* Remove any default margin */
+              padding: 10px; /* Adjust padding as needed for mobile */
             }
-            
-            h1, h2 {
-                margin: 0;
-                padding: 10px;
+            body {
+              justify-content: flex-start; /* Align content to the top */
+              padding: 0; /* Remove default padding */
+              height: auto; /* Let the body grow with content */
             }
-            
-            h1 {
-                font-size: 1.5em;
-                color: #333;
+            .button, a {
+              width: 95% !important; /* Make buttons full-width */
             }
-            
-            h2 {
-                font-size: 1.2em;
-                color: #666;
-            }
-            
-            div, a {
-                display: inline-block;
-                padding: 10px 20px;
-                text-decoration: none;
-                color: white;
-                background-color: #24A0ED;
-                border: none;
-                border-radius: 5px;
-                font-size: 1em;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-                width: 280px;
-            }
-            .button {
-                display: flex;
-                align-items: center;
-                user-select: none;
-            }
-            .icon {
-                margin-right: 8px;
-            }
-            div:hover, a:hover {
-                background-color: #007BFF;
-            }
-            div:active, a:active {
-                background-color: #003166;
-            }
-            a {
-                margin-bottom: 10px; /* Additional spacing for links */
-            }
+          }
+
+          body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #93e8fb 0%, #5a57f5 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+          }
+          
+          form {
+            background: white;
+            min-width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px; /* Adjusts spacing between elements */
+          }
+          
+          h1, h2 {
+            margin: 0;
+            padding: 10px;
+          }
+          
+          h1 {
+            font-size: 1.5em;
+            color: #333;
+          }
+          
+          h2 {
+            font-size: 1.2em;
+            color: #666;
+          }
+          
+          div, a {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: white;
+            background-color: #24A0ED;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 280px;
+          }
+          .button {
+            display: flex;
+            align-items: center;
+            user-select: none;
+          }
+          .icon {
+            margin-right: 8px;
+          }
+          div:hover, a:hover {
+            background-color: #007BFF;
+          }
+          div:active, a:active {
+            background-color: #003166;
+          }
+          
         </style>
         <script>
             /*
